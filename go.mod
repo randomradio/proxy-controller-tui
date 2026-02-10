@@ -1,4 +1,4 @@
-module proxy-tui-controller
+module github.com/wallacegibbon/proxy-tui-controller
 
 go 1.25.6
 

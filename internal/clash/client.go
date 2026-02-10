@@ -1,4 +1,4 @@
-package main
+package clash
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ var (
 	apiSecret = os.Getenv("MIHOMO_SECRET")
 )
 
-type ClashClient struct {
+type Client struct {
 	baseURL    string
 	secret     string
 	httpClient *http.Client
@@ -44,24 +44,24 @@ type ProxiesResponse struct {
 	Proxies map[string]Proxy `json:"proxies"`
 }
 
-func NewClashClient(baseURL string) *ClashClient {
+func NewClient(baseURL string) *Client {
 	if baseURL == "" {
 		baseURL = defaultClashURL
 	}
-	return &ClashClient{
+	return &Client{
 		baseURL:    baseURL,
 		secret:     apiSecret,
 		httpClient: &http.Client{},
 	}
 }
 
-func (c *ClashClient) addAuthHeader(req *http.Request) {
+func (c *Client) addAuthHeader(req *http.Request) {
 	if c.secret != "" {
 		req.Header.Set("Authorization", "Bearer "+c.secret)
 	}
 }
 
-func (c *ClashClient) GetProxies() (*ProxiesResponse, error) {
+func (c *Client) GetProxies() (*ProxiesResponse, error) {
 	if mockMode {
 		// Return mock data for testing
 		proxies := make(map[string]Proxy)
@@ -106,7 +106,7 @@ func (c *ClashClient) GetProxies() (*ProxiesResponse, error) {
 	return &result, nil
 }
 
-func (c *ClashClient) SelectProxy(groupName, proxyName string) error {
+func (c *Client) SelectProxy(groupName, proxyName string) error {
 	url := c.baseURL + proxiesPath + "/" + groupName
 
 	payload := map[string]string{
@@ -139,7 +139,7 @@ func (c *ClashClient) SelectProxy(groupName, proxyName string) error {
 	return nil
 }
 
-func (c *ClashClient) TestDelay(groupName, proxyName string, testURL string) (int, error) {
+func (c *Client) TestDelay(groupName, proxyName string, testURL string) (int, error) {
 	url := c.baseURL + proxiesPath + "/" + groupName + "/delay"
 
 	if testURL == "" {

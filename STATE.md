@@ -1,9 +1,22 @@
-# Project State - Last updated: 2026-02-10 20:00
+# Project State - Last updated: 2026-02-10 21:00
 
 ## Status
 **Complete and production-ready.**
 
 All features implemented and tested. Application successfully deployed to GitHub and Gitee.
+
+## Project Structure
+- Module: `github.com/wallacegibbon/proxy-tui-controller`
+- Binary: `proxy-tui-controller`
+- Standard Go project layout:
+  - `cmd/proxy-tui-controller/` - Application entry point
+  - `internal/clash/` - Clash/Mihomo API client
+  - `internal/tui/` - TUI implementation (model, update, view)
+
+## Installation
+```bash
+go install github.com/wallacegibbon/proxy-tui-controller/cmd/proxy-tui-controller@latest
+```
 
 ## Features
 - Compact, modern TUI interface for Clash/Mihomo proxy management
