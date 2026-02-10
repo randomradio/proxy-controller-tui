@@ -70,15 +70,15 @@ func (m Model) View() string {
 				var line string
 				if actualIdx == m.Cursor && p == proxy.Now {
 					line = cursorStyle.Render(">> ") + activeProxyStyle.Render(p)
-					if len(proxy.All) > visibleCount {
-						line += helpStyle.Render(fmt.Sprintf(" (%d/%d)", m.ViewportOffset+len(visibleProxies), len(proxy.All)))
-					}
 				} else if actualIdx == m.Cursor {
 					line = cursorStyle.Render(">  ") + p
 				} else if p == proxy.Now {
 					line = " " + activeProxyMarkStyle.Render(">") + " " + activeProxyStyle.Render(p)
 				} else {
 					line = "   " + normalStyle.Render(p)
+				}
+				if actualIdx == m.Cursor && len(proxy.All) > visibleCount {
+					line += helpStyle.Render(fmt.Sprintf(" (%d/%d)", m.ViewportOffset+len(visibleProxies), len(proxy.All)))
 				}
 				s += line + "\n"
 			}
