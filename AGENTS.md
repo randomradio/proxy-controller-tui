@@ -11,7 +11,7 @@ Go TUI application for managing Clash/Mihomo proxy services.
 
 ## Installation
 ```bash
-go install github.com/wallacegibbon/proxy-tui-controller/cmd/proxy-tui-controller@latest
+go install github.com/wallacegibbon/proxy-tui-controller@latest
 ```
 
 ## Usage
