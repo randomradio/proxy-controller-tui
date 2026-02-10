@@ -2,7 +2,6 @@ package tui
 
 import (
 	"fmt"
-	"strings"
 )
 
 func (m Model) View() string {
@@ -71,6 +70,9 @@ func (m Model) View() string {
 				var line string
 				if actualIdx == m.Cursor && p == proxy.Now {
 					line = cursorStyle.Render(">> ") + activeProxyStyle.Render(p)
+					if len(proxy.All) > visibleCount {
+						line += helpStyle.Render(fmt.Sprintf(" (%d/%d)", m.ViewportOffset+len(visibleProxies), len(proxy.All)))
+					}
 				} else if actualIdx == m.Cursor {
 					line = cursorStyle.Render(">  ") + p
 				} else if p == proxy.Now {
@@ -79,10 +81,6 @@ func (m Model) View() string {
 					line = "   " + normalStyle.Render(p)
 				}
 				s += line + "\n"
-			}
-
-			if len(proxy.All) > visibleCount {
-				s += helpStyle.Render("  " + strings.Repeat("-", 15) + fmt.Sprintf(" %d/%d ", m.ViewportOffset+len(visibleProxies), len(proxy.All))) + "\n"
 			}
 		}
 	}
