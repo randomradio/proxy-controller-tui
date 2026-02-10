@@ -78,7 +78,7 @@ func (m Model) View() string {
 					line = "   " + normalStyle.Render(p)
 				}
 				if actualIdx == m.Cursor && len(proxy.All) > visibleCount {
-					line += helpStyle.Render(fmt.Sprintf(" (%d/%d)", m.ViewportOffset+len(visibleProxies), len(proxy.All)))
+					line += helpStyle.Render(fmt.Sprintf(" (%d/%d)", m.Cursor+1, len(proxy.All)))
 				}
 				s += line + "\n"
 			}
