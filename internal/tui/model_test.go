@@ -121,4 +121,50 @@ func TestViewCursorOnActive(t *testing.T) {
 	if !strings.Contains(out, ">") {
 		t.Errorf("Expected active proxy marker > in output, got:\n%s", out)
 	}
+
+	// Verify help is at the bottom of terminal
+	lines := strings.Split(out, "\n")
+	if len(lines) > m.Height {
+		t.Errorf("Output exceeds terminal height: got %d lines, terminal height is %d", len(lines), m.Height)
+	}
+	lastLine := lines[len(lines)-1]
+	if !strings.Contains(lastLine, "[q]Quit") {
+		t.Errorf("Help message not on last line, got: %q", lastLine)
+	}
+}
+
+func TestHelpAtBottomSmallTerminal(t *testing.T) {
+	m := Model{
+		Proxies: map[string]clash.Proxy{
+			"Proxy": {
+				Name: "Proxy",
+				Type: "Selector",
+				Now:  "Proxy-1",
+				All:  []string{"Proxy-1", "Proxy-2"},
+			},
+		},
+		Groups:     []string{"Proxy"},
+		CurrentIdx: 0,
+		Cursor:     0,
+		Loading:    false,
+		Height:     8, // Very small terminal
+	}
+	out := m.View()
+	lines := strings.Split(out, "\n")
+
+	// For terminal height 8, we expect:
+	// - 1 group line
+	// - 2 proxy lines
+	// - Some padding
+	// - 1 help line
+	// Total should be 8
+	if len(lines) != m.Height {
+		t.Errorf("Expected output to be exactly %d lines (terminal height), got %d", m.Height, len(lines))
+		t.Logf("Output:\n%s", out)
+	}
+
+	lastLine := lines[len(lines)-1]
+	if !strings.Contains(lastLine, "q:quit") {
+		t.Errorf("Compact help message not on last line, got: %q", lastLine)
+	}
 }

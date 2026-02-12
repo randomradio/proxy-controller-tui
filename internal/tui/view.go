@@ -97,11 +97,25 @@ func (m Model) View() string {
 		}
 	}
 
-	if m.Height < 15 {
-		s += helpStyle.Render(" h/l:grp  j/k:prox  Ent:sel  r:reload  q:quit")
-	} else {
-		s += helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
+	// Count content lines
+	contentLines := strings.Count(s, "\n")
+	if contentLines > 0 {
+		// Add padding to push help to bottom
+		// We need: contentLines + padding + 1 (help line) = m.Height
+		// So: padding = m.Height - contentLines - 1
+		padding := m.Height - contentLines - 1
+		if padding > 0 {
+			s += strings.Repeat("\n", padding)
+		}
 	}
+
+	var helpText string
+	if m.Height < 15 {
+		helpText = helpStyle.Render(" h/l:grp  j/k:prox  Ent:sel  r:reload  q:quit")
+	} else {
+		helpText = helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
+	}
+	s += helpText
 
 	return s
 }
