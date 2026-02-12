@@ -2,6 +2,10 @@
 
 A modern, compact terminal user interface (TUI) for managing Clash/Mihomo proxy services. Built with Go and charmbracelet ecosystem (bubbletea & lipgloss).
 
+## Demo
+
+![Demo](demo.gif)
+
 ## Features
 
 - **Modern TUI Interface**: Clean, compact design with enhanced visual styling

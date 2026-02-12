@@ -65,17 +65,23 @@ func (c *Client) GetProxies() (*ProxiesResponse, error) {
 	if mockMode {
 		// Return mock data for testing
 		proxies := make(map[string]Proxy)
-		proxies["Proxy"] = Proxy{
-			Name: "Proxy",
+		proxies["Proxy Group A"] = Proxy{
+			Name: "Proxy Group A",
 			Type: "Selector",
 			Now:  "Proxy-1",
-			All:  []string{"Proxy-1", "Proxy-2", "Proxy-3"},
+			All:  []string{"Proxy-1", "Proxy-2", "Proxy-3", "Proxy-4", "Proxy-5", "Proxy-6", "Proxy-7"},
 		}
-		proxies["Auto"] = Proxy{
-			Name: "Auto",
+		proxies["Proxy Group B"] = Proxy{
+			Name: "Proxy Group B",
 			Type: "URLTest",
 			Now:  "Auto-2",
-			All:  []string{"Auto-1", "Auto-2", "Auto-3", "Auto-4"},
+			All:  []string{"Auto-1", "Auto-2", "Auto-3", "Auto-4", "Auto-5", "Auto-6"},
+		}
+		proxies["Proxy Group C"] = Proxy{
+			Name: "Proxy Group C",
+			Type: "Selector",
+			Now:  "Direct-1",
+			All:  []string{"Direct-1", "Direct-2", "Direct-3", "Direct-4", "Direct-5", "Direct-6", "Direct-7", "Direct-8"},
 		}
 		return &ProxiesResponse{Proxies: proxies}, nil
 	}
