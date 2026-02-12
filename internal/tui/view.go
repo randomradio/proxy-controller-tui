@@ -57,16 +57,12 @@ func (m Model) View() string {
 
 		if i == m.CurrentIdx {
 			// Calculate how many proxies we can show
-			// Footer takes: separator (1) + scrollbar (1 if needed) + help (1)
-			footerRows := minHelpRows
-			if len(proxy.All) > maxVisibleProxies {
-				footerRows++ // Add scrollbar row
-			}
-			availableRows := m.Height - len(m.Groups) - footerRows
+			// Footer takes: help (1 row)
+			availableRows := m.Height - len(m.Groups) - minHelpRows
 			if availableRows < 1 {
 				availableRows = 1
 			}
-			visibleCount := min(maxVisibleProxies, availableRows)
+			visibleCount := availableRows
 
 			visibleProxies := proxy.All
 			if len(proxy.All) > visibleCount {

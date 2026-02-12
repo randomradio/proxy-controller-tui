@@ -11,28 +11,26 @@ type errMsg error
 func (m Model) Init() tea.Cmd {
 	return LoadProxiesCmd(m.Client)
 }
+
 type proxiesLoadedMsg struct {
 	proxies map[string]clash.Proxy
 	groups  []string
 }
 
 const (
-	maxVisibleProxies = 20
-	minHelpRows      = 2 // footer + separator
+	minHelpRows = 1 // help text only
 )
 
 var (
-	headerStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("147")).Bold(true)
-	selectedGroupStyle = lipgloss.NewStyle().Background(lipgloss.Color("45")).Foreground(lipgloss.Color("231")).Bold(true)
-	normalGroupStyle   = lipgloss.NewStyle().Background(lipgloss.Color("45")).Foreground(lipgloss.Color("245"))
-	normalStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("245"))
-	activeProxyStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("86")).Bold(true)
+	headerStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("147")).Bold(true)
+	selectedGroupStyle   = lipgloss.NewStyle().Background(lipgloss.Color("45")).Foreground(lipgloss.Color("231")).Bold(true)
+	normalGroupStyle     = lipgloss.NewStyle().Background(lipgloss.Color("45")).Foreground(lipgloss.Color("245"))
+	normalStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("245"))
+	activeProxyStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("86")).Bold(true)
 	activeProxyMarkStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("208")).Bold(true)
-	cursorStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("51")).Bold(true)
-	selectedStyle      = lipgloss.NewStyle().Background(lipgloss.Color("238")).Foreground(lipgloss.Color("255"))
-	helpStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
-	borderStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("238"))
-	separatorStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
+	cursorStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("51")).Bold(true)
+	helpStyle            = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
+	separatorStyle       = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
 )
 
 type Model struct {
