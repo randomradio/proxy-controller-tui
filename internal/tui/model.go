@@ -49,8 +49,8 @@ type Model struct {
 	lastCursorProxy string // Track proxy name at cursor to restore position after reload
 }
 
-func InitialModel() Model {
-	client := clash.NewClient("")
+func InitialModel(baseURL, secret string) Model {
+	client := clash.NewClient(baseURL, secret)
 	return Model{
 		Client:          client,
 		Proxies:         make(map[string]clash.Proxy),
